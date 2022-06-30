@@ -1,0 +1,10 @@
+diff a/README.md b/README.md	(rejected hunks)
+@@ -651,7 +651,7 @@
+ * I valori previsti in tabella sono quelli relativi agli stati previsti per le istanze di blueprint e descritti nella US 1 
+   (Da Compilare | In Compilazione | Compilata | Archiviata | In Esercizio | Dismessa)
+ 
+-### [User Story - Id 1 - Statai Applicativi Istanza Blueprint](user_stories/us_1_stati_applicativi_istanza_blueprint.md)
++### [User Story - Id 1 - Statai Applicativi Istanza Blueprint](../user_stories/us_1_stati_applicativi_istanza_blueprint.md)
+ 
+ <br />
+ <br />

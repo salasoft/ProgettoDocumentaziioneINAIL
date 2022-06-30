@@ -1,0 +1,34 @@
+Prodotto:
+    identificativoProdotto: 'pim'
+    nomeProdotto: 'Gestione Infrastruttura di prodotto'
+    tipoProdotto: 'back-end'
+    descrizioneProdotto: 'Prodotto di back-end per la gestione delle informazioni di infrastrutura previste dai template blueprint'
+    dataCensimento: '2021-05-25'
+    stato: 'attivo'
+    modulo:
+        idModulo: 'gestinfra'
+        nomeModulo: 'gestinfra'
+        tipoModulo: 'Servizio'
+        descrizioneModulo: 'Breve descrizione del modulo applicativo'
+        componente:
+            idComponente: 'gestinfra-app'
+            nomeComponente: 'gestinfra-app'
+            tipoComponente: 'Logica applicativa'
+            descrizioneComponente: 'Componente microservizio di prodotto'
+            tecnologia: 'SpringBoot'
+            deployEnvironment: 'openshift'
+        componente:
+            idComponente: 'gestinfra-sql'
+            nomeComponente: 'gestinfra-sql'
+            tipoComponente: 'DatiSQL'
+            descrizioneComponente: 'Componente dati del microservizio di prodotto'
+            tecnologia: 'oracle'
+            deployEnvironment: 'exadata'
+        componente:
+            idComponente: 'gestinfra-api'
+            nomeComponente: 'gestinfra-api'
+            tipoComponente: 'OpenAPI3'
+            descrizioneComponente: 'Componente API del microservizio di prodotto'
+            tecnologia: 'xml'
+            deployEnvironment: 'apigateway'
+    

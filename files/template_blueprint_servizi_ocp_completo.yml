@@ -1,0 +1,235 @@
+nome     : servizi stateless su OpenShift
+versione : 1.0
+prodotto : back-end
+data     : 2021-02-25
+stato    : attiva
+    - tipoModulo: Interfaccia
+             min: 1
+             max: 1
+        - tipoComponente: OpenAPI3
+                     min: 1
+                     max: N
+       deployEnvironment: apigateway
+    - tipoModulo: Servizio
+             min: 1
+             max: N
+        - tipoComponente: Logica applicativa
+                     min: 1
+                     max: 1
+              tecnologia: spring-boot | nodejs | dotnet | python
+       deployEnvironment: openshift
+       runtimeEnvironment:      
+          ci:
+              nomeProgettoOpenShift: #nome del progetto Open Shift che ospita il microservizio
+                            nomePod: #nome del POD del progetto di Open Shift che ospita il microservizio
+                          imageName: #url Nexus dell'immagine Docker da scaricare per il deploy
+                           podScale: #informazioni di scaling del POD
+                                 min: 1
+                                 max: N
+                                size: small | medium | large # small (1 cpu, RAM 2GB), medium (2 cpu, RAM 4GB), large (4 cpu, RAM 8GB) tipologie sizing per JDK (spring-boot)
+                       configMapPod: #elenco config maps associate al POD, tipicamente al minimo 2 item
+                          - configMap:
+                               source: #link al file di config-map, generato a partire dai files di properties caricati su ticket RTC   
+                           mounthPath: #path di mount del file delle config map (informazione attualmente indicata nella scheda tecnica)   
+                          - configMap:
+                               source: #link al file di secrets, generato a partire dai files di properties caricati su ticket RTC   
+                           mounthPath: #path di mount del file delle config map, informazione indicata nella scheda tecnica  
+                          envVarPod: #elenco variabili d'ambiente del POD non definite in config-map (informazione attualmente indicata nella scheda tecnica)   
+                               - nome: #nome della variabile d'ambiente
+                               valore: #valore della variabile d'ambiente
+                               
+                       serviceRoute: #informazioni di Route del POD 
+                                 name: #nome univoco per la rotta
+                             hostName: #nome publico dell'hostname per la rotta, se non specificato sarà autogenerato da OCP
+                                 path: #path monitorato per l'instradamento del traffico verso il servizio
+                              service: #nome del servizio verso cui instradare
+                   targetPortProtocol: #protocollo per la porta target per il traffico dati (da verificare)
+                           targetPort: #porta target per il traffico dati (8080)
+                           
+                        healtChecks: #informazioni per il monitoring dello stato dei POD (informazione attualmente indicata nella scheda tecnica)
+                       readynessProbe: #
+                                   type: httpGet | tcpSocket # (verificare i valori possibili)
+                               useHttps: true | false
+                                   path: #/health/live
+                                   port: #default 8080
+                           initialDelay: #durata in secondi del tempo di attesa per l'avvio del container per l'inizio delle chiamate di check
+                                timeOut: #durata in secondi del tempo di attesa per la chiamate di probe, se il tempo di attesa viene superato la probe si considera fallita
+                        livenessProbe: #
+                                   type: httpGet | tcpSocket # (verificare i valori possibili)
+                               useHttps: true | false #(valido solo per type:httpGet)
+                                   path: #/health/live (valido solo per type:httpGet)
+                                   port: #default 8080
+                           initialDelay: #durata in secondi del tempo di attesa per l'avvio del container per l'inizio delle chiamate di check
+                                timeOut: #durata in secondi del tempo di attesa per la chiamate di probe, se il tempo di attesa viene superato la probe si considera fallita
+          coll:
+              nomeProgettoOpenShift: #nome del progetto Open Shift che ospita il microservizio
+                            nomePod: #nome del POD del progetto di Open Shift che ospita il microservizio
+                          imageName: #url Nexus dell'immagine Docker da scaricare per il deploy
+                           podScale: #informazioni di scaling del POD
+                                 min: 1
+                                 max: N
+                                size: small | medium | large # small (1 cpu, RAM 2GB), medium (2 cpu, RAM 4GB), large (4 cpu, RAM 8GB) tipologie sizing per JDK (spring-boot)
+                       configMapPod: #elenco config maps associate al POD, tipicamente al minimo 2 item
+                          - configMap:
+                               source: #link al file di config-map, generato a partire dai files di properties caricati su ticket RTC   
+                           mounthPath: #path di mount del file delle config map (informazione attualmente indicata nella scheda tecnica)   
+                          - configMap:
+                               source: #link al file di secrets, generato a partire dai files di properties caricati su ticket RTC   
+                           mounthPath: #path di mount del file delle config map, informazione indicata nella scheda tecnica  
+                          envVarPod: #elenco variabili d'ambiente del POD non definite in config-map (informazione attualmente indicata nella scheda tecnica)   
+                               - nome: #nome della variabile d'ambiente
+                               valore: #valore della variabile d'ambiente
+                               
+                       serviceRoute: #informazioni di Route del POD 
+                                 name: #nome univoco per la rotta
+                             hostName: #nome publico dell'hostname per la rotta, se non specificato sarà autogenerato da OCP
+                                 path: #path monitorato per l'instradamento del traffico verso il servizio
+                              service: #nome del servizio verso cui instradare
+                   targetPortProtocol: #protocollo per la porta target per il traffico dati (da verificare)
+                           targetPort: #porta target per il traffico dati (8080)
+                           
+                        healtChecks: #informazioni per il monitoring dello stato dei POD (informazione attualmente indicata nella scheda tecnica)
+                       readynessProbe: #
+                                   type: httpGet | tcpSocket # (verificare i valori possibili)
+                               useHttps: true | false
+                                   path: #/health/live
+                                   port: #default 8080
+                           initialDelay: #durata in secondi del tempo di attesa per l'avvio del container per l'inizio delle chiamate di check
+                                timeOut: #durata in secondi del tempo di attesa per la chiamate di probe, se il tempo di attesa viene superato la probe si considera fallita
+                        livenessProbe: #
+                                   type: httpGet | tcpSocket # (verificare i valori possibili)
+                               useHttps: true | false #(valido solo per type:httpGet)
+                                   path: #/health/live (valido solo per type:httpGet)
+                                   port: #default 8080
+                           initialDelay: #durata in secondi del tempo di attesa per l'avvio del container per l'inizio delle chiamate di check
+                                timeOut: #durata in secondi del tempo di attesa per la chiamate di probe, se il tempo di attesa viene superato la probe si considera fallit
+          cert:
+              nomeProgettoOpenShift: #nome del progetto Open Shift che ospita il microservizio
+                            nomePod: #nome del POD del progetto di Open Shift che ospita il microservizio
+                          imageName: #url Nexus dell'immagine Docker da scaricare per il deploy
+                           podScale: #informazioni di scaling del POD
+                                 min: 1
+                                 max: N
+                                size: small | medium | large # small (1 cpu, RAM 2GB), medium (2 cpu, RAM 4GB), large (4 cpu, RAM 8GB) tipologie sizing per JDK (spring-boot)
+                       configMapPod: #elenco config maps associate al POD, tipicamente al minimo 2 item
+                          - configMap:
+                               source: #link al file di config-map, generato a partire dai files di properties caricati su ticket RTC   
+                           mounthPath: #path di mount del file delle config map (informazione attualmente indicata nella scheda tecnica)   
+                          - configMap:
+                               source: #link al file di secrets, generato a partire dai files di properties caricati su ticket RTC   
+                           mounthPath: #path di mount del file delle config map, informazione indicata nella scheda tecnica  
+                          envVarPod: #elenco variabili d'ambiente del POD non definite in config-map (informazione attualmente indicata nella scheda tecnica)   
+                               - nome: #nome della variabile d'ambiente
+                               valore: #valore della variabile d'ambiente
+                               
+                       serviceRoute: #informazioni di Route del POD 
+                                 name: #nome univoco per la rotta
+                             hostName: #nome publico dell'hostname per la rotta, se non specificato sarà autogenerato da OCP
+                                 path: #path monitorato per l'instradamento del traffico verso il servizio
+                              service: #nome del servizio verso cui instradare
+                   targetPortProtocol: #protocollo per la porta target per il traffico dati (da verificare)
+                           targetPort: #porta target per il traffico dati (8080)
+                           
+                        healtChecks: #informazioni per il monitoring dello stato dei POD (informazione attualmente indicata nella scheda tecnica)
+                       readynessProbe: #
+                                   type: httpGet | tcpSocket # (verificare i valori possibili)
+                               useHttps: true | false
+                                   path: #/health/live
+                                   port: #default 8080
+                           initialDelay: #durata in secondi del tempo di attesa per l'avvio del container per l'inizio delle chiamate di check
+                                timeOut: #durata in secondi del tempo di attesa per la chiamate di probe, se il tempo di attesa viene superato la probe si considera fallita
+                        livenessProbe: #
+                                   type: httpGet | tcpSocket # (verificare i valori possibili)
+                               useHttps: true | false #(valido solo per type:httpGet)
+                                   path: #/health/live (valido solo per type:httpGet)
+                                   port: #default 8080
+                           initialDelay: #durata in secondi del tempo di attesa per l'avvio del container per l'inizio delle chiamate di check
+                                timeOut: #durata in secondi del tempo di attesa per la chiamate di probe, se il tempo di attesa viene superato la probe si considera fallita
+          prod:
+              nomeProgettoOpenShift: #nome del progetto Open Shift che ospita il microservizio
+                            nomePod: #nome del POD del progetto di Open Shift che ospita il microservizio
+                          imageName: #url Nexus dell'immagine Docker da scaricare per il deploy
+                           podScale: #informazioni di scaling del POD
+                                 min: 1
+                                 max: N
+                                size: small | medium | large # small (1 cpu, RAM 2GB), medium (2 cpu, RAM 4GB), large (4 cpu, RAM 8GB) tipologie sizing per JDK (spring-boot)
+                       configMapPod: #elenco config maps associate al POD, tipicamente al minimo 2 item
+                          - configMap:
+                               source: #link al file di config-map, generato a partire dai files di properties caricati su ticket RTC   
+                           mounthPath: #path di mount del file delle config map (informazione attualmente indicata nella scheda tecnica)   
+                          - configMap:
+                               source: #link al file di secrets, generato a partire dai files di properties caricati su ticket RTC   
+                           mounthPath: #path di mount del file delle config map, informazione indicata nella scheda tecnica  
+                          envVarPod: #elenco variabili d'ambiente del POD non definite in config-map (informazione attualmente indicata nella scheda tecnica)   
+                               - nome: #nome della variabile d'ambiente
+                               valore: #valore della variabile d'ambiente
+                               
+                       serviceRoute: #informazioni di Route del POD 
+                                 name: #nome univoco per la rotta
+                             hostName: #nome publico dell'hostname per la rotta, se non specificato sarà autogenerato da OCP
+                                 path: #path monitorato per l'instradamento del traffico verso il servizio
+                              service: #nome del servizio verso cui instradare
+                   targetPortProtocol: #protocollo per la porta target per il traffico dati (da verificare)
+                           targetPort: #porta target per il traffico dati (8080)
+                           
+                        healtChecks: #informazioni per il monitoring dello stato dei POD (informazione attualmente indicata nella scheda tecnica)
+                       readynessProbe: #
+                                   type: httpGet | tcpSocket # (verificare i valori possibili)
+                               useHttps: true | false
+                                   path: #/health/live
+                                   port: #default 8080
+                           initialDelay: #durata in secondi del tempo di attesa per l'avvio del container per l'inizio delle chiamate di check
+                                timeOut: #durata in secondi del tempo di attesa per la chiamate di probe, se il tempo di attesa viene superato la probe si considera fallita
+                        livenessProbe: #
+                                   type: httpGet | tcpSocket # (verificare i valori possibili)
+                               useHttps: true | false #(valido solo per type:httpGet)
+                                   path: #/health/live (valido solo per type:httpGet)
+                                   port: #default 8080
+                           initialDelay: #durata in secondi del tempo di attesa per l'avvio del container per l'inizio delle chiamate di check
+                                timeOut: #durata in secondi del tempo di attesa per la chiamate di probe, se il tempo di attesa viene superato la probe si considera fallita
+        - tipoComponente: DatiSQL
+                     min: 0
+                     max: 1
+              tecnologia: oracle | db2luv | sqlserver
+       deployEnvironment: sql
+    - tipoComponente: DatiNoSQL
+                     min: 0
+                     max: 1
+              tecnologia: mongodb
+       deployEnvironment: nosql
+        - tipoComponente: Coda request interna
+                     min: 0
+                     max: N
+       deployEnvironment: internal broker
+        - tipoComponente: Coda request esterna
+                     min: 0
+                     max: N
+       deployEnvironment: broker
+        - tipoComponente: Evento interno
+                     min: 0
+                     max: N
+       deployEnvironment: internal broker
+        - tipoComponente: Evento esterno
+                     min: 0
+                     max: N
+       deployEnvironment: broker
+    - tipoModulo: Libreria
+             min: 0
+             max: 1
+        - tipoComponente: Logica applicativa
+                     min: 1
+                     max: N
+              tecnologia: Java
+    - tipoModulo: Componente a catalogo interno al prodotto
+             min: 0
+             max: 1
+        - tipoComponente: internal cache
+                     min: 0
+                     max: N
+            voceCatalogo: Redis
+       deployEnvironment: openshift
+        - tipoComponente: internal broker
+                     min: 0
+                     max: 1
+            voceCatalogo: AMQ
+       deployEnvironment: openshift

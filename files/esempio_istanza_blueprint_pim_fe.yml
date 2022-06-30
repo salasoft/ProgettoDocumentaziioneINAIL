@@ -1,0 +1,24 @@
+Prodotto:
+    identificativoProdotto: 'pimui'
+    nomeProdotto: 'Portale Gestione Infrastruttura di prodotto'
+    tipoProdotto: 'front-end'
+    descrizioneProdotto: 'Prodotto di front-end per la gestione delle informazioni di infrastrutura previste dai template blueprint'
+    dataCensimento: '2021-05-25'
+    stato: 'attivo'
+    modulo:
+        idModulo: 'gestinfra-ui'
+        nomeModulo: 'gestinfra-ui'
+        tipoModulo: 'Client'
+        descrizioneModulo: 'Breve descrizione del modulo applicativo'
+        componente:
+            idComponente: 'pim-ui'
+            nomeComponente: 'pim-ui'
+            tipoComponente: 'Logica applicativa'
+            descrizioneComponente: 'Componente di front-end, client del prodotto Gestione Infrastruttura di prodotto'
+            tecnologia: 'angular'
+            deployEnvironment: 'apache-spa'
+
+
+
+
+
